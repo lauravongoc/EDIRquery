@@ -15,13 +15,10 @@ this database for genes of interest.
 &nbsp;
 ### Dataset
 
-EDIR provides a dataset of pairwise repeat structures in which both sequences 
-are located within a maximum of 1000 bp from each other, and fulfill one of the 
-following selection criteria:
+EDIR provides a dataset of pairwise repeat structures in which both sequences are located within a maximum of 1000 bp from each other, differ by at most a 1-bp mismatch, and and fulfill one of the following selection criteria:
 
 -   \>= 1 repeat located in an exon
 -   Both repeats situated in different introns flanking one or more exons
--   Repeat sequences differ by at most 1-bp mismatch
 
 Example data provided includes a subset of the data for the gene GAA 
 (ENSG00000171298) on chromosome 17. 
@@ -35,6 +32,8 @@ the data directory to `gene_lookup()` in the `path` parameter.
 ```{r}
 library(EDIRquery)
 ```
+
+&nbsp;
 
 EDIR can easily be queried using the `gene_lookup` function, using the gene name
 and additional parameters:
