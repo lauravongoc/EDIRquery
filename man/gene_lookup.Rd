@@ -25,20 +25,20 @@ gene.}
 
 \item{maxdist}{Maximum spacer distance between repeats. Defaults to 1000.}
 
-\item{summary}{Logical value indicating whether to store summary. Defaults to
-FALSE.}
+\item{summary}{Logical value indicating whether to store summary. Defaults
+to FALSE.}
 
 \item{mismatch}{Logical value indicating whether to allow 1 mismatch in
 sequences. Defaults to TRUE.}
 
 \item{path}{String containing path to directory holding downloaded dataset
-files. Defaults to NA. If not provided (\code{path} = NA), \code{gene_lookup()} will
-use subset of data provided as example.}
+files. Defaults to NA. If not provided (\code{path} = NA),
+\code{gene_lookup()} will use subset of data provided as example.}
 }
 \value{
 A data.frame of the results from the EDIR database. If
-\code{summary = TRUE}, returns a tibble containing the summary (\verb{$summary}), and
-query results (\verb{$results}).
+\code{summary = TRUE}, returns a tibble containing the summary
+(\verb{$summary}), and query results (\verb{$results}).
 }
 \description{
 This function searches for a specified gene in the EDIR dataset. A gene name
@@ -60,13 +60,13 @@ gene_lookup("GAA", mindist = 0, maxdist = 1000, mismatch = TRUE)
 
 ## To access query results, store in variable
 output <- gene_lookup("GAA", length = 7, mindist = 10, maxdist = 1000,
-                      mismatch = FALSE)
+                        mismatch = FALSE)
 head(output)
 
 ## With summary = TRUE
 output <- gene_lookup("GAA", length = 10, mindist = 10, maxdist = 1000,
-                      summary = TRUE,
-                      mismatch = TRUE)
+                        summary = TRUE,
+                        mismatch = TRUE)
 output$summary
 head(output$results)
 }

@@ -1,6 +1,5 @@
 
 
-
 #' Look Up a Gene in EDIR Dataset
 #'
 #' This function searches for a specified gene in the EDIR dataset. A gene name
@@ -17,16 +16,16 @@
 #' gene.
 #' @param mindist Minimum spacer distance between repeats. Defaults to 0.
 #' @param maxdist Maximum spacer distance between repeats. Defaults to 1000.
-#' @param summary Logical value indicating whether to store summary. Defaults to
-#' FALSE.
+#' @param summary Logical value indicating whether to store summary. Defaults
+#' to FALSE.
 #' @return A data.frame of the results from the EDIR database. If
-#' `summary = TRUE`, returns a tibble containing the summary (`$summary`), and
-#' query results (`$results`).
+#' `summary = TRUE`, returns a tibble containing the summary
+#' (`$summary`), and query results (`$results`).
 #' @param mismatch Logical value indicating whether to allow 1 mismatch in
 #' sequences. Defaults to TRUE.
 #' @param path String containing path to directory holding downloaded dataset
-#' files. Defaults to NA. If not provided (`path` = NA), `gene_lookup()` will
-#' use subset of data provided as example.
+#' files. Defaults to NA. If not provided (`path` = NA),
+#' `gene_lookup()` will use subset of data provided as example.
 #' @examples
 #' ## With given repeat length,
 #' gene_lookup("GAA", length = 7, mindist = 10, maxdist = 1000,
@@ -37,13 +36,13 @@
 #'
 #' ## To access query results, store in variable
 #' output <- gene_lookup("GAA", length = 7, mindist = 10, maxdist = 1000,
-#'                       mismatch = FALSE)
+#'                         mismatch = FALSE)
 #' head(output)
 #'
 #' ## With summary = TRUE
 #' output <- gene_lookup("GAA", length = 10, mindist = 10, maxdist = 1000,
-#'                       summary = TRUE,
-#'                       mismatch = TRUE)
+#'                         summary = TRUE,
+#'                         mismatch = TRUE)
 #' output$summary
 #' head(output$results)
 #' @export gene_lookup
@@ -85,7 +84,7 @@ gene_lookup <- function(gene,
         function(x, pos) {
             # subset(x, hgnc_symbol %in% gene | ensembl_gene_id %in% gene)
             subset(x, hgnc_symbol %in% gene |
-                       ensembl_gene_id %in% gene)
+                        ensembl_gene_id %in% gene)
         }
     }
     col_types <- cols(
@@ -112,7 +111,7 @@ gene_lookup <- function(gene,
     # Get chromosome number
     chromosome <-
         gene_chr$chromosome_name[which(gene_chr$ensembl_gene_id == gene |
-                                           gene_chr$hgnc_symbol == gene)]
+                                            gene_chr$hgnc_symbol == gene)]
 
 
 
@@ -120,8 +119,8 @@ gene_lookup <- function(gene,
     if (!is.na(path)) {
         # Check if last character of path is "/", if not, append "/"
         path <- ifelse(substring(path, nchar(path)) == "/",
-                       path,
-                       paste0(path, "/"))
+                        path,
+                        paste0(path, "/"))
 
         # If length is defined
         if (!is.na(length)) {
@@ -131,10 +130,10 @@ gene_lookup <- function(gene,
 
             # Define file path
             file <- paste0(path,
-                           as.character(length),
-                           "bp_dist1000_chr",
-                           chromosome,
-                           ".txt")
+                            as.character(length),
+                            "bp_dist1000_chr",
+                            chromosome,
+                            ".txt")
 
             # Read in file by chunks and select only rows corresponding to gene
             numgenes <- as.data.frame(
@@ -157,7 +156,7 @@ gene_lookup <- function(gene,
                 paste0(path, list.files(
                     path = path,
                     pattern = paste0("bp_dist1000_chr",
-                                     chromosome, ".txt")
+                                    chromosome, ".txt")
                 ))
 
             # Initialize empty df for relevant input
@@ -165,10 +164,10 @@ gene_lookup <- function(gene,
 
             for (i in 7:20) {
                 file <- paste0(path,
-                               as.character(i),
-                               "bp_dist1000_chr",
-                               chromosome,
-                               ".txt")
+                                as.character(i),
+                                "bp_dist1000_chr",
+                                chromosome,
+                                ".txt")
 
                 temp <- as.data.frame(
                     readr::read_delim_chunked(
@@ -198,7 +197,7 @@ gene_lookup <- function(gene,
     } else {
         if (!(gene %in% c("GAA", "ENSG00000171298"))) {
             stop("Use gene GAA / ENSG00000171298, or download full dataset and
-                 specify path")
+                specify path")
         }
 
         # If length is defined
@@ -209,12 +208,12 @@ gene_lookup <- function(gene,
 
             # Load file corresponding to defined length and gene's chromosome
             numgenes <- get(paste0(as.character(length),
-                                   "bp_dist1000_chr17"))
+                                    "bp_dist1000_chr17"))
 
             # Filter only resuls of queried gene
             numgenes <-
                 numgenes[which(numgenes$ensembl_gene_id == gene |
-                                   numgenes$hgnc_symbol == gene), ]
+                                numgenes$hgnc_symbol == gene),]
 
         }
         # If length not defined
@@ -226,7 +225,7 @@ gene_lookup <- function(gene,
                 input <- get(paste0(as.character(i),
                                     "bp_dist1000_chr17"))
                 temp <- input[which(input$ensembl_gene_id == gene |
-                                        input$hgnc_symbol == gene), ]
+                                        input$hgnc_symbol == gene),]
                 numgenes <- rbind(numgenes, temp)
             }
             rm(i, input, temp)
@@ -239,7 +238,7 @@ gene_lookup <- function(gene,
     checkMismatch <- ifelse(mismatch == TRUE, 1, 0)
 
     # Filter by mismatch value, either none, or both 1 and 0
-    results <- numgenes[which(numgenes$mismatch <= checkMismatch), ]
+    results <- numgenes[which(numgenes$mismatch <= checkMismatch),]
     rm(numgenes)
 
     # Format numeric cols
@@ -248,15 +247,15 @@ gene_lookup <- function(gene,
 
     # Filter on mindist and maxdist
     results <- results[which(results$distance >= mindist &
-                                 results$distance <= maxdist), ]
+                                results$distance <= maxdist),]
 
     # Sort results by repeat length, chromosome number, repeat sequence,
     # and start position
     results <-
         results[order(results$repeat_length,
-                      results$chromosome,
-                      results$repeat_seq,
-                      results$start), ]
+                        results$chromosome,
+                        results$repeat_seq,
+                        results$start),]
 
     # No results
     if (nrow(results) == 0) {
@@ -266,25 +265,25 @@ gene_lookup <- function(gene,
     } else {
         # summary df
         summ <- data.frame(repeat_length =
-                               sort(as.numeric(unique(
-                                   results$repeat_length
-                               ))),
-                           unique_seqs = NA)
+                                sort(as.numeric(unique(
+                                    results$repeat_length
+                                ))),
+                            unique_seqs = NA)
 
         # For each repeat length in results: number unique repeat_seq, number
         # unique instances, number structures, average distance
         for (i in summ$repeat_length) {
-            temp <- results[which(results$repeat_length == i), ]
+            temp <- results[which(results$repeat_length == i),]
 
             # Temp variable with just the sequences and start/ends
             inst <- rbind(temp[, c(3:5)],
-                          setNames(temp[, c(6:8)],
-                                   c("repeat_seq", "start", "end")))
+                            setNames(temp[, c(6:8)],
+                                    c("repeat_seq", "start", "end")))
 
             summ$unique_seqs[which(summ$repeat_length == i)] <-
                 length(unique(inst$repeat_seq))
             summ$tot_instances[which(summ$repeat_length == i)] <-
-                nrow(inst[!duplicated(inst), ])
+                nrow(inst[!duplicated(inst),])
             summ$tot_structures[which(summ$repeat_length == i)] <-
                 nrow(temp)
             summ$avg_dist[which(summ$repeat_length == i)] <-
@@ -331,7 +330,7 @@ gene_lookup <- function(gene,
         # Print summ df
         print(summ)
         cat("\n")
-        results <- results[order(as.numeric(rownames(results))), ]
+        results <- results[order(as.numeric(rownames(results))),]
         toc()
 
         # Output list of summ and detailed results
