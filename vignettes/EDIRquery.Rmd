@@ -62,15 +62,12 @@ using the gene name and additional parameters:
 | Argument | Description                                                                                                                                       | Default |
 |----------------|---------------------------------------------|-----------|
 | gene     | **required:** The gene name (ENSEMBLE ID or HGNC symbol)                                                                                          | \-      |
-| length   | Repeat sequence length, must be between 7 and 20. If NA, results 
-will include all available lengths in dataset for queried gene  | NA      |
+| length   | Repeat sequence length, must be between 7 and 20. If NA, results will include all available lengths in dataset for queried gene  | NA      |
 | mindist  | Minimum spacer distance (bp) between repeats                                                                                                      | 0       |
 | maxdist  | Maximum spacer distance (bp) between repeats                                                                                                      | 1000    |
 | summary  | Logical value indicating whether to store summary                                                                                                 | FALSE   |
 | mismatch | Logical value indicating whether to allow 1 mismatch in sequence                                                                                  | TRUE    |
-| path     | String containing path to directory holding downloaded dataset
-files. If not provided (`path` = NA), provided example subset of data will be 
-used | NA      |
+| path     | String containing path to directory holding downloaded dataset files. If not provided (`path = NA`), example subset of data will be used | NA      |
 
 
 
