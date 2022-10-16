@@ -82,7 +82,9 @@ head(results)
 ```
 ---
 ## Links
-- Full dataset download: 10.5281/zenodo.7036055
+- Full dataset download: 
+  - https://osf.io/m3gvx/
+  - [Direct download](http://193.70.34.71/EDIR.tar.gz)
 
 ---
 ## Contact
