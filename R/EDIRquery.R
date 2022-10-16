@@ -16,6 +16,8 @@
 #' gene.
 #' @param mindist Minimum spacer distance between repeats. Defaults to 0.
 #' @param maxdist Maximum spacer distance between repeats. Defaults to 1000.
+#' @param format Output table format. One of 'data.frame', 'GInteractions'.
+#' Defaults to 'data.frame'.
 #' @param summary Logical value indicating whether to store summary. Defaults
 #' to FALSE.
 #' @return A data.frame of the results from the EDIR database. If
@@ -51,6 +53,8 @@
 #' @import tibble
 #' @import tictoc
 #' @import utils
+#' @import GenomicRanges
+#' @import InteractionSet
 #' @importFrom stats setNames
 #'
 
@@ -59,6 +63,7 @@ gene_lookup <- function(gene,
                         length = NA,
                         mindist = 0,
                         maxdist = 1000,
+                        format = 'data.frame',
                         summary = FALSE,
                         mismatch = TRUE,
                         path = NA) {
@@ -71,9 +76,14 @@ gene_lookup <- function(gene,
         stop("Incorrect gene ID: use ENSEMBL ID or HGNC symbol")
     }
 
-    # Minimum distance >= maximumn distance
+    # Minimum distance >= maximun distance
     if (mindist >= maxdist) {
         stop("mindist must be less than maxdist")
+    }
+
+    # Format must be either 'data.frame' or 'GInteractions'
+    if (!(format %in% c('data.frame','GInteractions'))) {
+        stop("Format must be one of 'data.frame' or 'GInteractions'")
     }
 
     tic("Runtime")
@@ -331,6 +341,44 @@ gene_lookup <- function(gene,
         print(summ)
         cat("\n")
         results <- results[order(as.numeric(rownames(results))),]
+        results <- results[,c(1,2,4,5,7,8,3,15,6,16,9:14,17,18)]
+        colnames(results)[3:4] <- c("start1", "end1")
+        colnames(results)[7] <- "repeat_seq1"
+        colnames(results)[8] <- "intron_exon1"
+
+        if (format == 'GInteractions'){
+            ind1 <- c(1, 3, 4, 7:8)
+            ind2 <- c(1, 5, 6, 9:10)
+
+            reg1 <- GenomicRanges::makeGRangesFromDataFrame(results[,ind1],
+                                            keep.extra.columns=TRUE,
+                                            ignore.strand=FALSE,
+                                            seqinfo=NULL,
+                                            seqnames.field="chromosome",
+                                            start.field="start1",
+                                            end.field="end1",
+                                            strand.field="strand",
+                                            starts.in.df.are.0based=FALSE)
+            reg2 <- GenomicRanges::makeGRangesFromDataFrame(results[,ind2],
+                                            keep.extra.columns=TRUE,
+                                            ignore.strand=FALSE,
+                                            seqinfo=NULL,
+                                            seqnames.field="chromosome",
+                                            start.field="start2",
+                                            end.field="end2",
+                                            strand.field="strand",
+                                            starts.in.df.are.0based=FALSE)
+
+            gi <- InteractionSet::GInteractions(reg1, reg2)
+
+            ind.metadata <- c(12:18)
+
+            info <- colnames(results)[ind.metadata]
+
+            mcols(gi)[, info] <- results[,ind.metadata]
+            results <- gi
+        }
+
         toc()
 
         # Output list of summ and detailed results

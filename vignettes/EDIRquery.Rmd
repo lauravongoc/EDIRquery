@@ -65,6 +65,7 @@ using the gene name and additional parameters:
 | length   | Repeat sequence length, must be between 7 and 20. If NA, results will include all available lengths in dataset for queried gene  | NA      |
 | mindist  | Minimum spacer distance (bp) between repeats                                                                                                      | 0       |
 | maxdist  | Maximum spacer distance (bp) between repeats                                                                                                      | 1000    |
+| format  | Output table format. One of 'data.frame', 'GInteractions'.                                                                                                      | 'data.frame'    |
 | summary  | Logical value indicating whether to store summary                                                                                                 | FALSE   |
 | mismatch | Logical value indicating whether to allow 1 mismatch in sequence                                                                                  | TRUE    |
 | path     | String containing path to directory holding downloaded dataset files. If not provided (`path = NA`), example subset of data will be used | NA      |
@@ -103,6 +104,14 @@ results <- gene_lookup("GAA", length = 7, mismatch = TRUE)
 head(results)
 ```
 
+Changing the `format` parameter to `GInteractions` returns a GenomicInteractions 
+object instead of a dataframe:
+
+```{r}
+# Database output of query
+results <- gene_lookup("GAA", length = 7, format = "GInteractions", mismatch = TRUE)
+head(results)
+```
 
 
 # Session info

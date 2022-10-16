@@ -2,3 +2,5 @@
 .Rbuildignore
 .Rhistory
 EDIRquery.Rproj
+/doc/
+/Meta/

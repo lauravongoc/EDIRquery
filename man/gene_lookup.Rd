@@ -9,6 +9,7 @@ gene_lookup(
   length = NA,
   mindist = 0,
   maxdist = 1000,
+  format = "data.frame",
   summary = FALSE,
   mismatch = TRUE,
   path = NA
@@ -24,6 +25,9 @@ gene.}
 \item{mindist}{Minimum spacer distance between repeats. Defaults to 0.}
 
 \item{maxdist}{Maximum spacer distance between repeats. Defaults to 1000.}
+
+\item{format}{Output table format. One of 'data.frame', 'GInteractions'.
+Defaults to 'data.frame'.}
 
 \item{summary}{Logical value indicating whether to store summary. Defaults
 to FALSE.}
