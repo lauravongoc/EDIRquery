@@ -51,11 +51,11 @@
 #'
 #' @import readr
 #' @import tibble
-#' @import tictoc
 #' @import utils
 #' @import GenomicRanges
 #' @import InteractionSet
 #' @importFrom stats setNames
+#' @importFrom tictoc tic toc
 #'
 
 
