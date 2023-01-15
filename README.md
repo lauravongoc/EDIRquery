@@ -28,9 +28,21 @@ the data directory to `gene_lookup()` in the `path` parameter.
 
 &nbsp;
 ### Usage
+#### Installation
+To install this package, enter the following in R:
+
+```{r, eval=FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("EDIRquery")
+```
+
+Then load the package:
+
 
 ```{r}
-library(EDIRquery)
+library("EDIRquery")
 ```
 
 &nbsp;
@@ -88,4 +100,4 @@ head(results)
 
 ---
 ## Contact
-DT Laura Vo Ngoc: doan.vongoc@vub.be
+Laura DT Vo Ngoc: doan.vongoc@vub.be
