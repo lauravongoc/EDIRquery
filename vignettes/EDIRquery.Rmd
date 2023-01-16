@@ -52,8 +52,21 @@ the `path` parameter.
 
 # Usage
 
-```{r}
-library(EDIRquery)
+## Installation
+
+To install this package, enter the following in R:
+
+```{r, eval = FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("EDIRquery")
+```
+
+Then load the package:
+
+```{r, message = FALSE, warning = FALSE}
+library("EDIRquery")
 ```
 
 EDIR can easily be queried using the `gene_lookup` function, 
