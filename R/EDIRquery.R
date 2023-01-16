@@ -52,7 +52,7 @@
 #' @import utils
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom InteractionSet GInteractions
-#' @importFrom readr read_delim_chunked DataFrameCallback
+#' @importFrom readr read_delim_chunked DataFrameCallback cols col_double col_character
 #' @importFrom stats setNames
 #' @importFrom tictoc tic toc
 #' @importFrom tibble lst
