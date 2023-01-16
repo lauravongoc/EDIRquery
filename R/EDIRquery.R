@@ -49,13 +49,13 @@
 #' head(output$results)
 #' @export gene_lookup
 #'
-#' @import readr
-#' @import tibble
 #' @import utils
-#' @import GenomicRanges
-#' @import InteractionSet
+#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @importFrom InteractionSet GInteractions
+#' @importFrom readr read_delim_chunked DataFrameCallback cols col_double col_character
 #' @importFrom stats setNames
 #' @importFrom tictoc tic toc
+#' @importFrom tibble lst
 #'
 
 
@@ -206,8 +206,8 @@ gene_lookup <- function(gene,
         # If no given path to downloaded data, load included data subset
     } else {
         if (!(gene %in% c("GAA", "ENSG00000171298"))) {
-            stop("Use gene GAA / ENSG00000171298, or download full dataset and
-                specify path")
+            stop("Use gene GAA / ENSG00000171298, or download
+                full dataset and specify path")
         }
 
         # If length is defined
@@ -270,7 +270,7 @@ gene_lookup <- function(gene,
     # No results
     if (nrow(results) == 0) {
         # cat("Gene not in dataset\n\n")
-        cat("NO RESULT FOUND\n\n")
+        print("NO RESULT FOUND")
         toc()
     } else {
         # summary df
@@ -313,11 +313,11 @@ gene_lookup <- function(gene,
 
         # Print summ to console
         if (is.na(length)) {
-            cat("\tParameters\n")
+            writeLines("\tParameters\n")
         } else {
-            cat("\tParameters\n Repeat length:  ", length, " bp")
+            writeLines(paste0("\tParameters\n Repeat length:  ", length, " bp"))
         }
-        cat(
+        writeLines(paste0(
             " \n Gene:            ",
             results$ensembl_gene_id[1],
             " / ",
@@ -333,13 +333,13 @@ gene_lookup <- function(gene,
             " bp",
             "\n Mismatch:        ",
             mismatch,
-            "\n\n",
-            sep = ""
-        )
+            "\n\n"
+            # sep = ""
+        ))
 
         # Print summ df
         print(summ)
-        cat("\n")
+        writeLines("\n")
         results <- results[order(as.numeric(rownames(results))),]
         results <- results[,c(1,2,4,5,7,8,3,15,6,16,9:14,17,18)]
         colnames(results)[3:4] <- c("start1", "end1")
