@@ -1,6 +1,6 @@
 Package: EDIRquery
 Title: Query the EDIR Database For Specific Gene
-Version: 0.99.2
+Version: 0.99.3
 Authors@R: 
     person("Laura D.T.", "Vo Ngoc", , "doan.vongoc@vub.be", 
             role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1597-900X"))
