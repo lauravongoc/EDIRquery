@@ -50,7 +50,7 @@
 #' @export gene_lookup
 #'
 #' @import utils
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @importFrom GenomicRanges makeGRangesFromDataFrame mcols
 #' @importFrom InteractionSet GInteractions
 #' @importFrom readr read_delim_chunked DataFrameCallback cols col_double col_character
 #' @importFrom stats setNames
@@ -269,7 +269,6 @@ gene_lookup <- function(gene,
 
     # No results
     if (nrow(results) == 0) {
-        # cat("Gene not in dataset\n\n")
         print("NO RESULT FOUND")
         toc()
     } else {

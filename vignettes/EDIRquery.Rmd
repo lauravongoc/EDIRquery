@@ -1,6 +1,6 @@
 ---
 title: "EDIRquery"
-author: "Laura DT Vo Ngoc"
+author: "Laura D.T. Vo Ngoc"
 date: "`r Sys.Date()`"
 # output: rmarkdown::html_vignette
 output: rmarkdown::pdf_document

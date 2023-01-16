@@ -3,6 +3,7 @@
 export(gene_lookup)
 import(utils)
 importFrom(GenomicRanges,makeGRangesFromDataFrame)
+importFrom(GenomicRanges,mcols)
 importFrom(InteractionSet,GInteractions)
 importFrom(readr,DataFrameCallback)
 importFrom(readr,col_character)
