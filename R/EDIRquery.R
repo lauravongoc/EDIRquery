@@ -50,7 +50,7 @@
 #' @export gene_lookup
 #'
 #' @import utils
-#' @importFrom GenomicRanges makeGRangesFromDataFrame mcols
+#' @import GenomicRanges
 #' @importFrom InteractionSet GInteractions
 #' @importFrom readr read_delim_chunked DataFrameCallback cols col_double col_character
 #' @importFrom stats setNames
