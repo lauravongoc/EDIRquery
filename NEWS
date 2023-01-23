@@ -1,4 +1,30 @@
-EDIRquery v0.99.3
+
+EDIRquery v0.99.4
+===================
+
+Bioconductor review
+- Bioconductor install instructions
+- Description/News fix
+- Limit function imports
+- Add unit tests
+- Remove use of cat()
+
+Functions:
+    gene_lookup()
+
+-------------------
+
+EDIRquery v0.99.1
+===================
+
+Build WARNINGS removed
+
+Functions:
+    gene_lookup()
+
+-------------------
+
+EDIRquery v0.99.0
 ===================
 
 Initial commit.
